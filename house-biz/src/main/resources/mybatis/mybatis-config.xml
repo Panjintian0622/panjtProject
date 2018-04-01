@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!-- 配置关闭缓存 -->
+		<setting name="cacheEnabled" value="false" />
+		<!-- 配置将数据库下划线转为驼峰 -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<!-- 允许 JDBC 支持自动生成主键，需要驱动兼容。 如果设置为 true 则这个设置强制使用自动生成主键，尽管一些驱动不能兼容但仍可正常工作（比如 Derby）。 -->
+		<setting name="useGeneratedKeys" value="true" />
+		<!-- 配置默认的执行器。SIMPLE 就是普通的执行器；REUSE 执行器会重用预处理语句（prepared statements）； BATCH 执行器将重用语句并执行批量更新。 -->
+		<setting name="defaultExecutorType" value="REUSE" />
+		<!-- 设置超时时间，它决定驱动等待数据库响应的秒数。 -->
+		<setting name="defaultStatementTimeout" value="600" />
+	</settings>
+	<!-- 类型别名是为 Java 类型设置一个短的名字。它只和 XML 配置有关，存在的意义仅在于用来减少类完全限定名的冗余。 -->
+	<typeAliases>
+		<typeAlias type="com.mooc.house.common.model.User" alias="user" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="mapper/user.xml"/>
+	</mappers>
+</configuration>
