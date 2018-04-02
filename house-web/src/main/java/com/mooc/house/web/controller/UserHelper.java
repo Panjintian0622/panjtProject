@@ -1,7 +1,6 @@
 package com.mooc.house.web.controller;
 
-import org.apache.commons.lang.StringUtils;
-import org.eclipse.jetty.util.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import com.mooc.house.common.model.User;
 import com.mooc.house.common.result.ResultMsg;

@@ -2,17 +2,25 @@ package com.mooc.house.biz.service;
 
 import java.util.List;
 
+import org.springframework.aop.framework.autoproxy.BeanFactoryAdvisorRetrievalHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.collect.Lists;
 import com.mooc.house.biz.mapper.UserMapper;
 import com.mooc.house.common.model.User;
+import com.mooc.house.common.utils.BeanHelper;
 import com.mooc.house.common.utils.HashUtils;
 
 @Service
 public class UserService {
+	
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private FileService fileService;
 	
 	public List<User> getUsers(){
 		return userMapper.selectUsers();
@@ -25,8 +33,18 @@ public class UserService {
 	 * @param account
 	 * @return
 	 */
+	//userService调用addAcount时事物生效
+	@Transactional(rollbackFor=Exception.class)
 	public boolean addAccount(User account) {
 		account.setPasswd(HashUtils.encryPassword(account.getPasswd()));
+		List<String>  imgList = fileService.getImgPath(Lists.newArrayList(account.getAvatorFile()));
+		if(!imgList.isEmpty()) {
+			account.setAvator(imgList.get(0));
+		}
+		BeanHelper.setDefaultProp(account, User.class);
+		BeanHelper.onInsert(account);
+		account.setEnable(0);
+		userMapper.insert(account);
 		return false;
 	}
 }

@@ -9,4 +9,6 @@ import com.mooc.house.common.model.User;
 @Mapper
 public interface UserMapper {
 	public List<User> selectUsers();
+	
+	public int insert(User account);
 }
