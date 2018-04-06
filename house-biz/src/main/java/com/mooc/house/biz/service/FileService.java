@@ -48,6 +48,6 @@ public class FileService {
 		}
 		//将要上传的文件写到
 		Files.write(file.getBytes(), newFile);;
-	return null;
+	return newFile;
 	}
 }

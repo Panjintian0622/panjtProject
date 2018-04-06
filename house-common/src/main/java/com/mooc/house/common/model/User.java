@@ -14,11 +14,12 @@ public class User {
 	private Integer type;
 	private Date createTime;
 	private Integer enable;
-	private String avator;
-	private MultipartFile avatorFile;
+	private String avatar;
+	private MultipartFile avatarFile;
 	private String newPasswd;
 	private String key;
 	private Long agencyId;
+	private String aboutme;
 	public Long getId() {
 		return id;
 	}
@@ -91,20 +92,22 @@ public class User {
 		this.enable = enable;
 	}
 
-	public String getAvator() {
-		return avator;
+	
+	
+	public String getAvatar() {
+		return avatar;
 	}
 
-	public void setAvator(String avator) {
-		this.avator = avator;
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 
-	public MultipartFile getAvatorFile() {
-		return avatorFile;
+	public MultipartFile getAvatarFile() {
+		return avatarFile;
 	}
 
-	public void setAvatorFile(MultipartFile avatorFile) {
-		this.avatorFile = avatorFile;
+	public void setAvatarFile(MultipartFile avatarFile) {
+		this.avatarFile = avatarFile;
 	}
 
 	public String getNewPasswd() {
@@ -129,6 +132,14 @@ public class User {
 
 	public void setAgencyId(Long agencyId) {
 		this.agencyId = agencyId;
+	}
+
+	public String getAboutme() {
+		return aboutme;
+	}
+
+	public void setAboutme(String aboutme) {
+		this.aboutme = aboutme;
 	}
 	
 }

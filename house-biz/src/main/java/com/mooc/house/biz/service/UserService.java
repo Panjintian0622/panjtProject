@@ -2,7 +2,6 @@ package com.mooc.house.biz.service;
 
 import java.util.List;
 
-import org.springframework.aop.framework.autoproxy.BeanFactoryAdvisorRetrievalHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +15,9 @@ import com.mooc.house.common.utils.HashUtils;
 @Service
 public class UserService {
 	
+
+	@Autowired
+	private MailService mailService;
 	@Autowired
 	private UserMapper userMapper;
 	
@@ -37,14 +39,21 @@ public class UserService {
 	@Transactional(rollbackFor=Exception.class)
 	public boolean addAccount(User account) {
 		account.setPasswd(HashUtils.encryPassword(account.getPasswd()));
-		List<String>  imgList = fileService.getImgPath(Lists.newArrayList(account.getAvatorFile()));
+		List<String>  imgList = fileService.getImgPath(Lists.newArrayList(account.getAvatarFile()));
 		if(!imgList.isEmpty()) {
-			account.setAvator(imgList.get(0));
+			account.setAvatar(imgList.get(0));
 		}
 		BeanHelper.setDefaultProp(account, User.class);
 		BeanHelper.onInsert(account);
 		account.setEnable(0);
 		userMapper.insert(account);
-		return false;
+		mailService.registerNotify(account.getEmail());
+		return true;
 	}
+	
+	 public boolean enable(String key) {
+	    return mailService.enable(key);
+	  }
+
+	
 }
